@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout1"
+    android:background="#000000" 
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+    android:orientation="vertical"> 
+   <TextView android:text="1 Item(s)" 
+        android:id="@+id/text5" 
+        android:textColor="#FFFFFF" 
+        android:textSize="24sp"
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" >
+    </TextView>
+    <TextView android:text="Many places, everywhere!" 
+        android:id="@+id/text6" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" >
+    </TextView>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout1"
+    android:background="#000000" 
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"> 
+    <ProgressBar android:id="@+id/progressbar"
+        android:layout_width="180px"
+        android:layout_height="wrap_content" 
+        android:layout_marginTop="5px"
+        android:layout_marginBottom="5px"
+        android:max="100"
+        style="?android:attr/progressBarStyleHorizontal" >
+    </ProgressBar>
+        <TextView android:text=" %0.4560" 
+        android:id="@+id/text7" 
+         android:textSize="18sp"
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" >
+    </TextView>
+    </LinearLayout>
+</LinearLayout>
+
+

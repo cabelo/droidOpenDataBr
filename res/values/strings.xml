@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, conectar!</string>
+    <string name="app_name">droidOpenDataBr</string>
+    <string-array name="base_array">
+    <item>Estado de São Paulo</item>
+    <item>Governo Federal</item>
+    </string-array>
+    <string-array name="periodo_array">
+    <item>2011</item>
+    <item>2010</item>
+    <item>2009</item>
+    <item>2008</item>
+    <item>2007</item>
+    <item>2006</item>
+    <item>2005</item>    
+    </string-array>    
+</resources>

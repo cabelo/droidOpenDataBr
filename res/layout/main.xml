@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#000000" 
+    >
+    <TextView  
+    android:textSize="24sp"
+    android:layout_marginTop="5px" 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:text="droidOpenDataBr 1.0"
+    android:layout_gravity="center_horizontal"
+    />    <TextView  
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:text="Alessandro de Oliveira Faria"
+    android:layout_gravity="center_horizontal"
+    />
+    <TextView  
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:text="cabelo@opensuse.org"
+    android:layout_gravity="center_horizontal"
+    />
+    <TextView  
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:text="Versão: 0.90 Beta"
+    android:layout_gravity="center_horizontal"
+    />
+    <Button
+    android:layout_marginTop="5px" 
+    android:layout_gravity="center_horizontal" 
+    android:text="Consultar" 
+    android:id="@+id/button1" 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content">
+    </Button>
+    <TextView  
+    android:layout_marginLeft="5px" 
+    android:textSize="20sp"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:text="Base"
+    />
+    <Spinner android:id="@+id/spinner1" android:layout_height="wrap_content" android:layout_width="fill_parent"></Spinner>
+    <TextView  
+    android:layout_marginLeft="5px" 
+    android:textSize="20sp"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:text="Período"
+    />
+    <Spinner android:id="@+id/spinner2" android:layout_height="wrap_content" android:layout_width="fill_parent"></Spinner>
+    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/logo" android:id="@+id/imageView1"
+    android:layout_gravity="center_horizontal"></ImageView>
+</LinearLayout>
