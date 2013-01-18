@@ -12,6 +12,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -71,6 +72,7 @@ public class listCloud extends ListActivity {
 	public void processJSON(){
         try {
         	JSONObject jsonResponse = new JSONObject(result);
+        	Log.e("JSON CABELO 4:", result);
       	    String query = jsonResponse.getString("total_tree");
             JSONArray jArray = jsonResponse.getJSONArray("children");
             qtde =  jArray.length();
@@ -151,6 +153,7 @@ public class listCloud extends ListActivity {
    	Intent it = new Intent(this, listCloud.class);
    	it.putExtra("json",dados2.result);
    	startActivity(it);
+   	//startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("http://www.google.com")));
    }
    
    public void getJson()
@@ -168,15 +171,28 @@ public class listCloud extends ListActivity {
    
    @Override
    protected void onListItemClick(ListView l, View v, int position, long id) {
+	   String tipoDados;
 	   
 	   int mIndice = Integer.parseInt(indiceS[position-1].substring(10,13));
 	   String selection =  idS[mIndice]; //l.getItemAtPosition(mIndice-1).toString();
 	   Toast.makeText(this, "Aguarde...", Toast.LENGTH_LONG).show();
        dados2.sNode = selection;
-       dados2.sNode = dados2.sNode.replace("2012/", "2012/data/");
+       dados2.BaseWork = selection;
+
        Log.e("JSON CABELO X0:", dados2.sNode);
-       dialog =  ProgressDialog.show(listCloud.this,"Aguarde...","Obtendo dados...",true);
-		getJson();
+       tipoDados = dados2.sNode.substring(0,7);
+       Log.e("JSON CABELO X0:", tipoDados);
+       if( tipoDados.equals("/credor") )
+       { 
+    	  // Log.e("JSON CABELO X0:","Passei aqui credor");
+    	   startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("http://www.paraondefoiomeudinheiro.com.br"+dados2.sNode)));
+       }
+       else
+       {   
+    	  // Log.e("JSON CABELO X0:","Passei aqui lista");
+          dialog =  ProgressDialog.show(listCloud.this,"Aguarde...","Obtendo dados...",true);
+	 	  getJson();
+       }
    }
    
    private Handler handler = new Handler() {

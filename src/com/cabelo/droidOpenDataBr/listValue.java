@@ -19,20 +19,38 @@ import android.util.Log;
 public class listValue {
 	InputStream is;
 	String result;
-	String URLBase = "http://www.paraondefoiomeudinheiro.com.br";
+	String URL = "http://www.paraondefoiomeudinheiro.com.br";
 	// String URLBase = "http://www.paraondefoiomeudinheiro.com.br/data";
 	String sNode;
-    
+	String BaseURL;
+	int    Ano;
+	String BaseWork;
+	
     public void getJsonContent() {
         result = "";
+        String tmpStr;
 
         try {
             HttpClient httpclient = new DefaultHttpClient();
+            
             //HttpPost httppost = new HttpPost("http://www.paraondefoiomeudinheiro.com.br/data/node/1");
             //HttpResponse response = httpclient.execute(httppost);
-            HttpGet httpGet = new HttpGet(URLBase + sNode);	//"http://www.paraondefoiomeudinheiro.com.br/data/node/1");
-            Log.e("JSON CABELO 0:",URLBase + sNode);
-			HttpResponse response = httpclient.execute(httpGet);
+            
+            int i1;
+            i1 = BaseWork.indexOf("/dataset/");
+            
+            tmpStr =  BaseWork.substring(i1+9,BaseWork.indexOf("/", i1+9));
+            if(BaseWork.charAt(BaseWork.length()-1) == '/')
+            {
+            	BaseWork = BaseWork.substring(0,BaseWork.length()-1);
+            }	
+            	
+
+            sNode = BaseWork.replace(tmpStr,tmpStr + "/data"); 
+            
+			
+            HttpGet httpGet = new HttpGet(URL +sNode);	//"http://www.paraondefoiomeudinheiro.com.br/data/node/1");
+            HttpResponse response = httpclient.execute(httpGet);
 			HttpEntity entity = response.getEntity();
             is = entity.getContent();
         } catch(Exception e) {

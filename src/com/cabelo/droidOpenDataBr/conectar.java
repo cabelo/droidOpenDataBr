@@ -40,8 +40,7 @@ class Dados
 public class conectar extends Activity {
 	listValue dados1;
 	int qtde;
-	int Base;
-    ProgressDialog dialog;
+	ProgressDialog dialog;
     String BaseNode;
     
     /** Called when the activity is first created. */
@@ -51,8 +50,8 @@ public class conectar extends Activity {
         getWindow().getDecorView().setBackgroundColor(Color.BLACK);
         setContentView(R.layout.main);
         dados1 = new listValue(); 
-        dados1.sNode = "/dataset/estado-sao-paulo-2012/data";
-        BaseNode = "/dataset/estado-sao-paulo-";	
+        dados1.BaseURL = "/dataset/estado-sao-paulo-";	
+        dados1.Ano = 2012;
         Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.base_array, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -70,20 +69,17 @@ public class conectar extends Activity {
         	public void onItemSelected(AdapterView<?> parent, View v, int posicao, long  id){
         		if(posicao ==0){
         			// Estado de Sao Paulo
-        			Base = 1;
-        			BaseNode = "/dataset/estado-sao-paulo-";	
+        			dados1.BaseURL = "/dataset/estado-sao-paulo-";	
         		}
         		if(posicao ==1){
         			// Governo Federal
-        			BaseNode = "/dataset/federal-direto-";
-        			Base = 2;
-
+        			dados1.BaseURL = "/dataset/federal-direto-";
+        			
         		}
         		if(posicao ==2){
         		    			// Municipio de Sao Paulo
-    			    BaseNode = "/dataset/municipio-sao-paulo-";
-    			    Base = 3;
-
+        			dados1.BaseURL = "/dataset/municipio-sao-paulo-";
+    			    
     		}
 
         	}
@@ -98,11 +94,8 @@ public class conectar extends Activity {
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
         	@Override 
         	public void onItemSelected(AdapterView<?> parent, View v, int posicao, long  id){
-
+                    dados1.Ano = 2012-posicao;
         			
-        	        //  dados1.sNode = "/data"; 
-        			dados1.sNode = BaseNode + Integer.toString(2012-posicao)+"/data";
-        			Log.e("JSON CABELO 4:",dados1.sNode);
         		
         	}
         	
@@ -117,6 +110,11 @@ public class conectar extends Activity {
         
         capture.setOnClickListener(new OnClickListener(){
         	public void onClick(View v){
+
+         	    dados1.BaseWork = dados1.BaseURL+ Integer.toString(dados1.Ano)+"/";
+         	    dados1.sNode = "(vazio)";
+        		//Log.e("JSON CABELO 4:",dados1.sNode);
+
         		dialog =  ProgressDialog.show(conectar.this,"Aguarde...","Obtendo dados...",true);
         		getJson();
         	}
@@ -142,6 +140,7 @@ public class conectar extends Activity {
     public void startList(){
     	Intent it = new Intent(this, listCloud.class);
     	it.putExtra("json",dados1.result);
+    	Log.e("JSON CABELO 4:",dados1.result);
     	startActivity(it);
     }
    
