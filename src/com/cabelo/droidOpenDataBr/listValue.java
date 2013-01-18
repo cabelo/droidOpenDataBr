@@ -19,7 +19,8 @@ import android.util.Log;
 public class listValue {
 	InputStream is;
 	String result;
-	String URLBase = "http://www.paraondefoiomeudinheiro.com.br/data";
+	String URLBase = "http://www.paraondefoiomeudinheiro.com.br";
+	// String URLBase = "http://www.paraondefoiomeudinheiro.com.br/data";
 	String sNode;
     
     public void getJsonContent() {
@@ -30,6 +31,7 @@ public class listValue {
             //HttpPost httppost = new HttpPost("http://www.paraondefoiomeudinheiro.com.br/data/node/1");
             //HttpResponse response = httpclient.execute(httppost);
             HttpGet httpGet = new HttpGet(URLBase + sNode);	//"http://www.paraondefoiomeudinheiro.com.br/data/node/1");
+            Log.e("JSON CABELO 0:",URLBase + sNode);
 			HttpResponse response = httpclient.execute(httpGet);
 			HttpEntity entity = response.getEntity();
             is = entity.getContent();

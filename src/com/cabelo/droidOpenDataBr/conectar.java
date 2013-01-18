@@ -29,6 +29,7 @@ import android.widget.Spinner;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 
 class Dados
 
@@ -41,23 +42,27 @@ public class conectar extends Activity {
 	int qtde;
 	int Base;
     ProgressDialog dialog;
+    String BaseNode;
     
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().getDecorView().setBackgroundColor(Color.BLACK);
         setContentView(R.layout.main);
         dados1 = new listValue(); 
-        dados1.sNode = "/node/170227";
-        
+        dados1.sNode = "/dataset/estado-sao-paulo-2012/data";
+        BaseNode = "/dataset/estado-sao-paulo-";	
         Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.base_array, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //spinner1.setEnabled(false);
         spinner1.setAdapter(adapter1);
         
         Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.periodo_array, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //spinner2.setEnabled(false);
         spinner2.setAdapter(adapter2);
         
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -66,12 +71,21 @@ public class conectar extends Activity {
         		if(posicao ==0){
         			// Estado de Sao Paulo
         			Base = 1;
+        			BaseNode = "/dataset/estado-sao-paulo-";	
         		}
-        		else{
+        		if(posicao ==1){
         			// Governo Federal
+        			BaseNode = "/dataset/federal-direto-";
         			Base = 2;
 
         		}
+        		if(posicao ==2){
+        		    			// Municipio de Sao Paulo
+    			    BaseNode = "/dataset/municipio-sao-paulo-";
+    			    Base = 3;
+
+    		}
+
         	}
         	
 			@Override
@@ -84,35 +98,12 @@ public class conectar extends Activity {
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
         	@Override 
         	public void onItemSelected(AdapterView<?> parent, View v, int posicao, long  id){
-        		if(Base == 1){
-        			// Estado de Sao Paulo
-        	        dados1.sNode = "/node/170227";
-        		}
-        		else{
-        			// Governo Federal
-        			switch(posicao){
-        			case 0:
-        				dados1.sNode = "/node/1";
-        				break;
-        			case 1:
-        				dados1.sNode = "/node/170775";
-        				break;
-        			case 2:
-        				dados1.sNode = "/node/336532";
-        				break;
-        			case 3:
-        				dados1.sNode = "/node/514165";
-        				break;
-        			case 4:
-        				dados1.sNode = "/node/692746";
-        				break;
-        			case 5:
-        				dados1.sNode = "/node/871115";
-        				break;
-        			default:
-        				dados1.sNode = "/node/170227";
-        			}
-        		}
+
+        			
+        	        //  dados1.sNode = "/data"; 
+        			dados1.sNode = BaseNode + Integer.toString(2012-posicao)+"/data";
+        			Log.e("JSON CABELO 4:",dados1.sNode);
+        		
         	}
         	
 			@Override
@@ -131,7 +122,10 @@ public class conectar extends Activity {
         	}
         });
     }
-    
+    public void setActivityBackgroundColor(int color) {
+        View view = this.getWindow().getDecorView();
+        view.setBackgroundColor(Color.BLACK);
+    }
     public void getJson()
     {
 		Thread authJSON = new Thread() {

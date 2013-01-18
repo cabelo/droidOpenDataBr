@@ -11,6 +11,7 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -38,7 +39,7 @@ public class listCloud extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	
+	getWindow().getDecorView().setBackgroundColor(Color.BLACK);
 	   Intent it = getIntent();
 	   if(it != null){
 	      Bundle params = it.getExtras();
@@ -172,6 +173,8 @@ public class listCloud extends ListActivity {
 	   String selection =  idS[mIndice]; //l.getItemAtPosition(mIndice-1).toString();
 	   Toast.makeText(this, "Aguarde...", Toast.LENGTH_LONG).show();
        dados2.sNode = selection;
+       dados2.sNode = dados2.sNode.replace("2012/", "2012/data/");
+       Log.e("JSON CABELO X0:", dados2.sNode);
        dialog =  ProgressDialog.show(listCloud.this,"Aguarde...","Obtendo dados...",true);
 		getJson();
    }

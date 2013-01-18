@@ -5,8 +5,10 @@
     <string-array name="base_array">
     <item>Estado de São Paulo</item>
     <item>Governo Federal</item>
+    <item>Municipio de São Paulo</item>
     </string-array>
     <string-array name="periodo_array">
+    <item>2012</item>
     <item>2011</item>
     <item>2010</item>
     <item>2009</item>
