@@ -1,4 +1,7 @@
 package com.cabelo.droidOpenDataBr;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,32 +33,50 @@ import android.widget.Toast;
 public class listCloud extends ListActivity {
 	Dados[] Informacoes;
 	int qtde;
-	String result;
-    ProgressDialog dialog;
+	StringBuffer result;
+	String File;
+	ProgressDialog dialog;
     String[] idS;
     String[] indiceS;
     listValue dados2;
     boolean errorFound;
+    boolean foundFilter;
+    int myPosition;
+    String tituloLocal;
     
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	getWindow().getDecorView().setBackgroundColor(Color.BLACK);
 	   Intent it = getIntent();
+	   foundFilter = false;
 	   if(it != null){
 	      Bundle params = it.getExtras();
 	      if(params != null){
-		  result = params.getString("json");
+			  File = params.getString("json");
+			  Log.v("droidOpenDataBr [reference] :",File);
+			  result = new StringBuffer("");
+              try {		  
+		          BufferedReader in = new BufferedReader(new FileReader(File));  
+		          int c = 0;  
+ 				   while ((c = in.read()) != -1) {  
+				      result.append((char)c);  
+				   }
+				   in.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}  
 	      }
 	   }
-	   
 	   dados2 = new listValue();
-	   dialog =  ProgressDialog.show(listCloud.this,"Aguarde...","Processando dados...",true);
+	   dialog =  ProgressDialog.show(listCloud.this,"Aguarde...","Processando dados ...",true);
        ListView lv = getListView();
        LayoutInflater infalter = getLayoutInflater();
        ViewGroup header = (ViewGroup) infalter.inflate(R.layout.head, lv, false);
-       lv.addHeaderView(header,null,false);
-
+       lv.addHeaderView(header,null,false);	   
+	   
+	   
 	   runOnUiThread(new Runnable() {
 	        public void run() {
 	            errorFound = false; 	
@@ -63,6 +84,7 @@ public class listCloud extends ListActivity {
 				if(!errorFound)
 				{
 				   drawListMany();
+				   //setSelection(myPosition);
 				}
 	        	handler.sendEmptyMessage(0);
 	        }
@@ -71,8 +93,7 @@ public class listCloud extends ListActivity {
    
 	public void processJSON(){
         try {
-        	JSONObject jsonResponse = new JSONObject(result);
-        	Log.e("JSON CABELO 4:", result);
+        	JSONObject jsonResponse = new JSONObject(result.toString());
       	    String query = jsonResponse.getString("total_tree");
             JSONArray jArray = jsonResponse.getJSONArray("children");
             qtde =  jArray.length();
@@ -96,6 +117,11 @@ public class listCloud extends ListActivity {
 				Informacoes[i].porcentagem = jsonResponse2.getString("porcentagem");
 				idS[i] = jsonResponse2.getString("link");
 				indiceS[i] = String.format("%9.5f:",Float.parseFloat(jsonResponse2.getString("porcentagem")))+String.format("%03d",i);
+				tituloLocal = Informacoes[i].titulo;
+				if(tituloLocal.indexOf("PREF") >=0 )
+				{
+			       foundFilter = true;
+				}
 			}
 			java.util.Arrays.sort(indiceS,Collections.reverseOrder());
 			
@@ -138,6 +164,19 @@ public class listCloud extends ListActivity {
            TextView label3=(TextView)row.findViewById(R.id.text7);
            ProgressBar progressBar1=(ProgressBar)row.findViewById(R.id.progressbar);
  	       label1.setText(Informacoes[mIndice].titulo );
+ 	       if(foundFilter)
+ 	       {	 
+ 	          tituloLocal = Informacoes[mIndice].titulo;
+ 	          if(tituloLocal.indexOf("PREF") >=0 )
+ 	          {	   
+ 	             label1.setTextColor(Color.rgb(000, 000, 255));
+ 	             myPosition = position;
+ 	          }
+ 	          else
+ 	          {
+  	             label1.setTextColor(Color.rgb(128, 128, 128));
+  	          }
+ 	       } 	       
  	       label2.setText("R$ "+Informacoes[mIndice].valorh+" - "+Informacoes[mIndice].valor);
  	       label3.setText(" %"+Informacoes[mIndice].porcentagem);
            progressBar1.setProgress(Float.valueOf(Informacoes[mIndice].porcentagem.trim()).intValue());
@@ -151,9 +190,9 @@ public class listCloud extends ListActivity {
    
    public void startList(){
    	Intent it = new Intent(this, listCloud.class);
-   	it.putExtra("json",dados2.result);
+   	it.putExtra("json",dados2.File);
    	startActivity(it);
-   	//startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("http://www.google.com")));
+
    }
    
    public void getJson()
@@ -179,9 +218,7 @@ public class listCloud extends ListActivity {
        dados2.sNode = selection;
        dados2.BaseWork = selection;
 
-       Log.e("JSON CABELO X0:", dados2.sNode);
        tipoDados = dados2.sNode.substring(0,7);
-       Log.e("JSON CABELO X0:", tipoDados);
        if( tipoDados.equals("/credor") )
        { 
     	  // Log.e("JSON CABELO X0:","Passei aqui credor");

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.cabelo.droidOpenDataBr"
-      android:versionCode="6"
-      android:versionName="6.1">
+      android:versionCode="7"
+      android:versionName="7">
       
     <uses-sdk android:minSdkVersion="3" />       
     <supports-screens  android:smallScreens="false" android:normalScreens="true" android:largeScreens="true"  android:anyDensity="true"  />
     
     <uses-permission        android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name=".conectar"
                   android:label="@string/app_name">

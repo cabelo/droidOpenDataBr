@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/linearLayout1"
-    android:background="#000000" 
+    android:background="#FFFFFF" 
     android:layout_width="fill_parent" 
     android:layout_height="fill_parent"
     android:orientation="vertical"> 
    <TextView android:text="1 Item(s)" 
         android:id="@+id/text5" 
-        android:textColor="#FFFFFF" 
+        android:textColor="#808080" 
         android:textSize="24sp"
         android:layout_width="wrap_content" 
         android:layout_height="wrap_content" >
     </TextView>
     <TextView android:text="Many places, everywhere!" 
+        android:textColor="#808080"        
         android:id="@+id/text6" 
         android:layout_width="wrap_content" 
         android:layout_height="wrap_content" >
     </TextView>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/linearLayout1"
-    android:background="#000000" 
+    android:background="#FFFFFF" 
     android:layout_width="fill_parent" 
     android:layout_height="fill_parent"
     android:orientation="horizontal"> 
@@ -31,9 +32,10 @@
         android:max="100"
         style="?android:attr/progressBarStyleHorizontal" >
     </ProgressBar>
-        <TextView android:text=" %0.4560" 
+        <TextView android:text=" %0.4560"
+        android:textColor="#000000"
         android:id="@+id/text7" 
-         android:textSize="18sp"
+        android:textSize="18sp"
         android:layout_width="wrap_content" 
         android:layout_height="wrap_content" >
     </TextView>

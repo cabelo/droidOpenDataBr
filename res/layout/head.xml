@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/linearLayout1"
-    android:background="#000000" 
+    android:background="#FFFFFF" 
+    android:textColor="#FFFFFF" 
     android:layout_width="fill_parent" 
     android:layout_height="fill_parent"
     android:orientation="vertical"> 
    <TextView android:text="1 Item(s)" 
         android:id="@+id/text10" 
-        android:layout_gravity="center_horizontal" 
-        android:textColor="#FFFFFF" 
+        android:layout_gravity="center_horizontal"
+        android:textColor="#000000" 
         android:textSize="24sp"
         android:layout_width="wrap_content" 
         android:layout_height="wrap_content" >
     </TextView>
     <TextView android:text="Many places, everywhere!" 
         android:id="@+id/text11"
-        android:textColor="#FFFFFF" 
+        android:textColor="#808080" 
         android:layout_gravity="center_horizontal"  
         android:layout_width="wrap_content" 
         android:layout_height="wrap_content" 
